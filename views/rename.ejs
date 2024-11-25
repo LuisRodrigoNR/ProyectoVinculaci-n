@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Document</title>
+    <style>
+        .container {
+             
+            float:center;
+            
+          }
+        </style>
+       
+</head>
+<body class="white">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+
+<div class="container"><h1  style="color: rgb(0, 0, 0);text-align: center;">Lista de  usuarios</h1>
+</div>
+<br>
+    <div class="container">
+    <table     >
+        <tr>
+            <th class="blue lighten-3">ID</th>
+            <th class="blue lighten-3">Nombre|</th>
+            <th class="blue lighten-3">Email</th>
+            <th class="blue lighten-3">Acciones</th>
+        </tr>
+        <!-- JS -->
+         <% users.forEach(user =>{  %>
+        <tr>
+            <td class="green lighten-3"><%=user.id %></td>
+            <td  class="green lighten-3"><%=user.name %></td>
+            <td  class="green lighten-3"><%=user.email %></td>
+            <td class="amber accent-1">
+                <a   href="/edit/:id">Editar</a>|
+                <a    href="/delete/<%= user.id %>">Eliminar</a>
+            </td>
+
+        </tr>
+        <% }); %>
+        
+    </div></table>
+    
+</body>
+</html>

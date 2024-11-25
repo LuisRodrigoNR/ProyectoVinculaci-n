@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+   <style>
+    .container {
+         
+        float:right;
+        width: 40%;
+        
+        
+      }
+      
+     
+   
+</style>  
+<style>
+    .container-fondo {
+position: absolute;
+top: 0;
+left: 0;
+background-image: url('unam.jpg');
+background-size: cover;
+background-position: right;
+height: 100vh;
+width: 60vw;
+background-color: #ffffff;
+
+      }
+    </style>  
+<style>
+    .container_iconos{
+
+    
+        background-color: #ccc;
+        height: 15%;
+ }
+    
+</style>
+</head>
+<body class="deep-purple darken-4">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+    <!-- agregar user -->
+  
+    <div class="container_iconos " >
+        <h2 ><a href="https://www.facebook.com/jaime.guzman.50552338" ><img src="f.png" width="40" height="40" style="position: absolute; right: 50px; top: 0;"></h2></a>
+      
+        <h1><a href="https://github.com/JaimeGuzmanSantoyo"><img src="git.png" width="40" height="40" style="position: absolute; right: 100px; top: 0;" ></a></h1>
+        <h3><a href="https://www.instagram.com/jimmy_motionless_0/"><img src="i.jpg"width="40" height="40" style="position: absolute; right: 0; top: 0;" ></a></h3>
+        </div> 
+    
+    <div class="container">
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+    <h2 style="font-family:'Times New Roman', Times, serif; text-align: left;"     ">Agregar usuario</h2>
+    
+    <br>
+    <br>
+    <br>
+
+    <form action="/add" method="post">
+    <label for="name" class=" blue-text darken-2"  style="font-size: 30px; " >Nombre:</label>
+    <input type="text"  required name="name" id="name">
+    <label for="email"  class=" white-text " style="font-size: 30px;">Correo: </label>
+    <input type="email" id="email" name="email" required >
+    <button class=" teal accent-3"   style="font-size: 25px;" type="submit" ">Registrar</button>
+    <button class=" teal accent-3" ><a href="/rename"     style="font-size:25px;color: blue; text-align: center;"">mostrar lista de usuarios</a> </button>
+   
+ </form> </div> 
+<!--<a href="usuario/agregarusuario.ejs">Agregar usuario</a>
+--><div class="container-fondo ">
+        <!-- Contenido del contenedor -->
+        
+        
+        <h1 class=" Green-text darken-4 " style="text-align: center;font-size: 150px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Proyecto Fianal </h1>
+        <h2  style="text-align: center;color: #ffffff;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">programación web 2 </h2>
+        <p style="font-size: 30px;text-align: center;">
+            <!--<img src="/unam.jpg" " width="300" height="300">
+
+            
+                
+        -->6
+            </p>
+      </div>
+ 
+</body>
+</html>

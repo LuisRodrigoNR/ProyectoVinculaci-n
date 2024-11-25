@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <form action="/edit/:id" method="post"></form>
+    <h1 style="text-align: center;"> editar el usuario de la base </h1>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" value="<%= user.name %>">
+  
+    <label for="email">Correo electrónico:</label>
+    <input type="email" id="email" name="email" value="<%= user.email %>">
+    <button class=" teal accent-3"   style="font-size: 25px;" type="submit" ">Actualizar</button>
+    <button type="submit">Actualizar</button>
+          
+    
+    </body>
+     
+
+</html>
