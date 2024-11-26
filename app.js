@@ -95,6 +95,7 @@ app.post('/add',(req,res)=>{
 app.get('/edit/:id', (req, res) => {
     console.log('GET /edit/:id');
     const { id } = req.params;
+    console.log(`ID recibido: ${id}`);
     const query = 'SELECT * FROM users WHERE id = ?';
     db.query(query, [id], (err, results) => {
       console.log('Query ejecutada');
@@ -112,12 +113,12 @@ app.get('/edit/:id', (req, res) => {
     });
   });
 
-app.post('/edit/:id', (req, res) => {
-    const { id } = req.params;
+app.post('/edit', (req, res) => {
+    const { id } = req.body;
     const { name ,email} = req.body;
     console.log(`ID: ${id}`);
     const query = 'UPDATE users SET name = ?, email = ? WHERE id = ?';
-    db.query(query, [id,name ,email], (err, results) => {
+    db.query(query, [name ,email,parseInt(id)], (err, results) => {
       if (err) {
         console.error(`Error al buscar usuario: ${err}`);
         console.error(`error al actualizar datos:${err}`);
@@ -125,10 +126,9 @@ app.post('/edit/:id', (req, res) => {
         res.send('Error al buscar usuario');
       } else {
         if (results.length > 0) {
-          res.render('edit', { user: results[0] }); 
+          res.render('edit', { user: results[0] });
         } else {
-          res.send('Usuario no encontrado');
-          res.redirect('/');
+          res.status(404).send('Usuario no encontrado');
         }
       }
     });
