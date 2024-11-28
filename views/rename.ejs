@@ -16,15 +16,15 @@
         </style>
        
 </head>
-<body class="white">
+<body class=" light-blue lighten-4">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   
 
-<div class="container"><h1  style="color: rgb(0, 0, 0);text-align: center;">Lista de  usuarios</h1>
+<div class="container purple accent-1"><h1  style="color: rgb(0, 0, 0);text-align: center;">Lista de  usuarios</h1>
 </div>
 <br>
     <div class="container">
-    <table     >
+    <table style="box-shadow: 30px;"    >
         <tr>
             <th class="blue lighten-3">ID</th>
             <th class="blue lighten-3">Nombre|</th>
@@ -39,11 +39,17 @@
             <td  class="green lighten-3"><%=user.email %></td>
             <td class="amber accent-1">
                 <a   href="/edit/:id">Editar</a>|
-                <a    href="/delete/<%= user.id %>">Eliminar</a>
+                <form  action="/delete/<%= user.id %>"  method="post">
+                <button  type="submit">Eliminar</button>
+                </form>
             </td>
 
         </tr>
         <% }); %>
+    
+       
+
+        </form>
         
     </div></table>
     

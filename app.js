@@ -7,9 +7,7 @@ const app = express();
 app.use(express.static(__dirname + '/views')); // nos va servir para poder cargar  archivos estáticos desde la carpeta 'views'
 app.use(bodyParser.urlencoded({extended: false}));
 
-//analizar los datos del cuerpo de las solicitudes HTTP, especificamente los datos que provienen de formulario HTML enviados atraves de propiedad POST y GET
 
-//motor de plantillas para html de forma dinamica
 app.set('view engine', 'ejs');
 
 //creedenciales para DB
@@ -60,15 +58,15 @@ app.get('/', (req, res) => {
 
 //Mostrar lista de usuarios
 app.get('/rename',(req,res)=>{
-    //Consulta  a la base de datos
+  
     const query = 'SELECT * FROM users';
-    // trabajar con la conexion
+    
     db.query(query,(err,results)=>{
         if(err){
             console.error(`Error al recuperar datos -> Codigo de error:${err}`);
             res.send('Error en recuperar datos');
         }else{
-            const users = results; // Definimos la variable users para que se pueda usar en rename
+            const users = results; 
             res.render('rename',{users: users}); 
         }
 
@@ -105,7 +103,7 @@ app.get('/edit/:id', (req, res) => {
       } else {
         console.log('Resultado de la query:', results);
         if (results.length > 0) {
-          res.render('edit', { user: results[0] }); // Pasa la variable user a la vista
+          res.render('edit', { user: results[0] }); 
         } else {
           res.send('Usuario no encontrado');
         }
@@ -136,7 +134,7 @@ app.post('/edit', (req, res) => {
   
 //eliminar
 
-app.get('/delete/:id',(req,res)=>{
+app.post('/delete/:id',(req,res)=>{
     const {id}=req.params;
     const query = 'DELETE FROM users WHERE id = ?';
     db.query(query,[id],(err)=>{
