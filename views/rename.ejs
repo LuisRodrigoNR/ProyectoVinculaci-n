@@ -60,7 +60,7 @@
           <td class="green lighten-3"><%= trabajador.TelefonoCelular %></td>
           <td class="green lighten-3"><%= trabajador.Direccion %></td>
           <td class="amber accent-1">
-            <a href="/edit/:NumeroTrabajador" style="margin-right: 5px;">Editar</a>
+            <a href="/edit/<%= trabajadores.NumeroTrabajador %>" style="margin-right: 5px;">Editar</a>
             <form action="/delete/<%= trabajador.NumeroTrabajador %>" method="post" style="display:inline;">
             <button type="submit">Eliminar</button>
             </form>

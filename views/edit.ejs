@@ -20,36 +20,73 @@
     width: 40%;
     
     
-  }</style>
+  }
+  .container-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('unam.jpg');
+    background-size: cover;
+    background-position: right;
+    height: 120vh;
+    width: 60vw;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #ffffff;
+    
+          }
+
+
+</style>
     <title>Document</title>
     
-    
-    
+   
 </head>
 <body class=" deep-purple lighten-4">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
     <form action="/edit "method="post" >
-    <h1 style="text-align: center;background-color:deepskyblue;font-family: Georgia, 'Times New Roman', Times, serif;"> EDITAR USUARIO </h1>
-    <div class="container "> 
-    <label for="id" style="font-size: 30px;color: black;background-color: aquamarine;">Introduce el ID:</label>
-    <br><br><br>
-    <input  style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: aquamarine;"  type="text" id="id" name="id">
-    <br><br><br><br>
-    <label for="name" style="font-size: 30px;color: black;background-color: aquamarine;">Nombre:</label>
-    <br><br><br><br>
-    <input  style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: aquamarine;""  type="text" id="name" name="name" value="<%= user.name %>">
-    <br><br><br><br>
-    <label for="email" style="font-size: 30px;color: black;background-color: aquamarine;">Correo electrónico:</label>
-    <br><br><br><br>
-    <input style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: aquamarine;""   type="email" id="email" name="email" value="<%= user.email %>">
    
+    <div class="container ", style="background-color: rgb(230, 197, 231);border-radius:5%;"> 
+      <label for="NumeroTrabajador" style="display: block; font-size: 30px; color: black; background-color: rgb(249, 250, 243); margin: 0 auto; width: fit-content;">Introduce el numero del trabajador:</label>
+    <br><br><br>
+    <input  style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: rgb(236, 241, 240);text-align: right;"  type="text" id="id" name="id">
+    <br><br><br><br>
+    <label for="name" style="display:block;font-size: 30px;color: rgb(7, 7, 7);background-color: white
+    ; margin: 0 auto;  margin: 0 auto; width: fit-content">Nombre y apellidos :</label>
+    <br><br><br><br>
+    <input  style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: rgb(255, 255, 255);""  type="text" id="name" name="name" value="<%= user.name %>">
+    <br><br><br><br>
+    <label for="email" style="display:block; font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content">Correo electrónico:</label>
+    <br><br><br><br>
+    <input style="border-radius: 15%;color: darkmagenta;font-size: 30px;background-color: rgb(255, 255, 255);""   type="email" id="email" name="email" value="<%= user.email %>">
+    <br><br><br><br>
+    <label for="email" style=" display:block;  font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content">curp:</label>
+    <br><br><br><br>
+    <label for="email" style="display:block;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content; margin: 0 auto; width: fit-content;">numero de casa :</label>
+    <br><br><br><br>
+    <label for="email" style="display:block ;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">numero celular</label>
+    <br><br><br><br>
+    <label for="email" style="display: block;  font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">direccion :</label>
+    <br><br><br><br>
+    <label for="email" style="  display: block;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">Categoria:</label>
+    <br><br><br><br>
+    <label for="email" style="  display: block;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">grado academico:</label>
+    <br><br><br><br>
+    <label for="email" style=" display: block;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">antiguedad en la unam</label>
+    <br><br><br><br>
+    <label for="email" style=" display: block;font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">Correo electrónico:</label>
+
+    <br><br><br><br>
+    <label for="email" style="display: block; font-size: 30px;color: black;background-color: rgb(255, 255, 255); margin: 0 auto; width: fit-content;">antiguedad en la carrera:</label>
+    <br><br><br><br>
+    <label for="email" style="display: block;font-size: 30px;color: black;background-color: rgb(248, 252, 250); margin: 0 auto; width: fit-content;">genero (f/m):</label>
 </div></form>
     
     <br><br><br><br><br>
     <div class="containerbuttons">
-    <button class="purple"   style="font-size: 25px; text-align: center;color: black;" type="submit" ">Actualizar</button>
-    <button class="purple"   style="font-size: 25px; text-align: center;color: black; " type="submit" "><a href="">BASE DE DATOS</button></a>
+    <button  class="purple"   style="font-size: 25px; text-align: center;color: black;" type="submit" ">Actualizar Registro</button>
+    <button class="purple"   style="font-size: 25px; text-align: center;color: black; " type="submit" "><a href="rename">Consultar BASE DE DATOS</button></a>
     </div>
     </body>
     
