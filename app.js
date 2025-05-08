@@ -15,7 +15,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'zeus0401',
-    database: 'proyecto',
+    database: 'profesores',
     port: '3308'
 });
 
@@ -28,7 +28,7 @@ db.connect(err=>{
     }
 });
 /*Puerto*/
-const port = 3036; 
+const port = 3038; 
 const hostName= '0.0.0.0';
 //server inicio
 app.listen(port,hostName,()=>{
@@ -45,13 +45,13 @@ app.get('/unam.jpg', (req, res) => {
     res.sendFile(__dirname + '/views/unam.jpg');
   });
 app.get('/', (req, res) => {
-    const query = 'SELECT * FROM users';
+    const query = 'SELECT * FROM trabajadores';
     db.query(query, (err, results) => {
         if (err) {
             console.error(`Error al recuperar datos: ${err}`);
             res.send('Error al recuperar datos');
         } else {
-            res.render('index', { users: results });
+            res.render('index', { trabajadores: results });
         }
     });
 });
@@ -59,15 +59,15 @@ app.get('/', (req, res) => {
 //Mostrar lista de usuarios
 app.get('/rename',(req,res)=>{
   
-    const query = 'SELECT * FROM users';
+    const query = 'SELECT * FROM trabajadores';
     
     db.query(query,(err,results)=>{
         if(err){
             console.error(`Error al recuperar datos -> Codigo de error:${err}`);
             res.send('Error en recuperar datos');
         }else{
-            const users = results; 
-            res.render('rename',{users: users}); 
+            const trabajadores = results; 
+            res.render('rename',{trabajadores: trabajadores}); 
         }
 
     });    
@@ -78,7 +78,7 @@ app.get('/rename',(req,res)=>{
 //agregar usuario
 app.post('/add',(req,res)=>{
     const {name,email} = req.body;
-    const query = 'INSERT INTO users (name, email)VALUE (?,?)';
+    const query = 'INSERT INTO trabajadores (name, email)VALUE (?,?)';
     db.query(query,[name,email],(err)=>{
         if(err){
             console.error(`Error al insertar usuarios: Codigo-> ${err}`);
@@ -90,12 +90,12 @@ app.post('/add',(req,res)=>{
 });
 
 //editar usuario
-app.get('/edit/:id', (req, res) => {
-    console.log('GET /edit/:id');
-    const { id } = req.params;
-    console.log(`ID recibido: ${id}`);
-    const query = 'SELECT * FROM users WHERE id = ?';
-    db.query(query, [id], (err, results) => {
+app.get('/edit/:NumeroTrabajador', (req, res) => {
+    console.log('GET /edit/:NumeroTrabajador');
+    const { NumeroTrabajador } = req.params;
+    console.log(`numero de trabajador recibido: ${NumeroTrabajador}`);
+    const query = 'SELECT * FROM trabajadores WHERE NumeroTrabajador = ?';
+    db.query(query, [NumeroTrabajador], (err, results) => {
       console.log('Query ejecutada');
       if (err) {
         console.error(`Error al buscar usuario: ${err}`);
@@ -112,11 +112,11 @@ app.get('/edit/:id', (req, res) => {
   });
 
 app.post('/edit', (req, res) => {
-    const { id } = req.body;
+    const { NumeroTrabajador } = req.body;
     const { name ,email} = req.body;
-    console.log(`ID: ${id}`);
-    const query = 'UPDATE users SET name = ?, email = ? WHERE id = ?';
-    db.query(query, [name ,email,parseInt(id)], (err, results) => {
+    console.log(`Numero de Trabajador: ${NumeroTrabajador}`);
+    const query = 'UPDATE trabajadores SET name = ?, email = ? WHERE NumeroTrabajador = ?';
+    db.query(query, [name ,email,parseInt(NumeroTrabajador)], (err, results) => {
       if (err) {
         console.error(`Error al buscar usuario: ${err}`);
         console.error(`error al actualizar datos:${err}`);
@@ -136,7 +136,7 @@ app.post('/edit', (req, res) => {
 
 app.post('/delete/:id',(req,res)=>{
     const {id}=req.params;
-    const query = 'DELETE FROM users WHERE id = ?';
+    const query = 'DELETE FROM trabajadores WHERE id = ?';
     db.query(query,[id],(err)=>{
         if(err){
             console.error('Error en el Delete');

@@ -23,35 +23,54 @@
 <div class="container purple accent-1"><h1  style="color: rgb(0, 0, 0);text-align: center;">Lista de  usuarios</h1>
 </div>
 <br>
-    <div class="container">
-    <table style="box-shadow: 30px;"    >
+<div class="container">
+    <table style="box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-collapse: collapse; width: 100%;">
+      <thead>
         <tr>
-            <th class="blue lighten-3">ID</th>
-            <th class="blue lighten-3">Nombre|</th>
-            <th class="blue lighten-3">Email</th>
-            <th class="blue lighten-3">Acciones</th>
+          <th class="blue lighten-3">Numero_Trabajador</th>
+          <th class="blue lighten-3">Nombre_completo</th>
+          <th class="blue lighten-3">Genero</th>
+          <th class="blue lighten-3">RFC</th>
+          <th class="blue lighten-3">Curp</th>
+          <th class="blue lighten-3">Categoria</th>
+          <th class="blue lighten-3">GradoAcademico</th>
+          <th class="blue lighten-3">Antiguedad</th>
+          <th class="blue lighten-3">Antiguedad_Carrera</th>
+          <th class="blue lighten-3">CorreoElectronicoInstitucional</th>
+          <th class="blue lighten-3">Telefono</th>
+          <th class="blue lighten-3">Telefono celular</th>
+          <th class="blue lighten-3">Direccion</th>
+          <th class="blue lighten-3">Acciones</th>
         </tr>
-        <!-- JS -->
-         <% users.forEach(user =>{  %>
+      </thead>
+      <tbody>
+        <% trabajadores.forEach(trabajador => { %>
         <tr>
-            <td class="green lighten-3"><%=user.id %></td>
-            <td  class="green lighten-3"><%=user.name %></td>
-            <td  class="green lighten-3"><%=user.email %></td>
-            <td class="amber accent-1">
-                <a   href="/edit/:id">Editar</a>|
-                <form  action="/delete/<%= user.id %>"  method="post">
-                <button  type="submit">Eliminar</button>
-                </form>
-            </td>
-
+          <td class="green lighten-3"><%= trabajador.NumeroTrabajador %></td>
+          <td class="green lighten-3"><%= trabajador.NombreCompleto %></td>
+          <td class="green lighten-3"><%= trabajador.Genero %></td>
+          <td class="green lighten-3"><%= trabajador.RFC %></td>
+          <td class="green lighten-3"><%= trabajador.Curp %></td>
+          <td class="green lighten-3"><%= trabajador.Categoria %></td>
+          <td class="green lighten-3"><%= trabajador.GradoAcademico %></td>
+          <td class="green lighten-3"><%= trabajador.AntiguedadUNAM %></td>
+          <td class="green lighten-3"><%= trabajador.AntiguedadCarrera %></td>
+          <td class="green lighten-3"><%= trabajador.CorreoElectronicoInstitucional %></td>
+          <td class="green lighten-3"><%= trabajador.TelefonoCasa %></td>
+          <td class="green lighten-3"><%= trabajador.TelefonoCelular %></td>
+          <td class="green lighten-3"><%= trabajador.Direccion %></td>
+          <td class="amber accent-1">
+            <a href="/edit/:NumeroTrabajador" style="margin-right: 5px;">Editar</a>
+            <form action="/delete/<%= trabajador.NumeroTrabajador %>" method="post" style="display:inline;">
+            <button type="submit">Eliminar</button>
+            </form>
+          </td>
         </tr>
         <% }); %>
-    
-       
-
-        </form>
-        
-    </div></table>
+      </tbody>
+    </table>
+  </div>
+  
     
 </body>
 </html>
