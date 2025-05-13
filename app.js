@@ -103,7 +103,7 @@ app.get('/edit/:NumeroTrabajador', (req, res) => {
       } else {
         console.log('Resultado de la query:', results);
         if (results.length > 0) {
-          res.render('edit', { user: results[0] }); 
+          res.render('edit', { trabajadores: results[0] }); 
         } else {
           res.send('Usuario no encontrado');
         }
@@ -111,26 +111,52 @@ app.get('/edit/:NumeroTrabajador', (req, res) => {
     });
   });
 
-app.post('/edit', (req, res) => {
-    const { NumeroTrabajador } = req.body;
-    const { name ,email} = req.body;
-    console.log(`Numero de Trabajador: ${NumeroTrabajador}`);
-    const query = 'UPDATE trabajadores SET name = ?, email = ? WHERE NumeroTrabajador = ?';
-    db.query(query, [name ,email,parseInt(NumeroTrabajador)], (err, results) => {
-      if (err) {
-        console.error(`Error al buscar usuario: ${err}`);
-        console.error(`error al actualizar datos:${err}`);
-        
-        res.send('Error al buscar usuario');
-      } else {
-        if (results.length > 0) {
-          res.render('edit', { user: results[0] });
-        } else {
-          res.status(404).send('Usuario no encontrado');
+  app.post('/edit', (req, res) => {
+    // 1. Recuperar todos los datos del formulario
+    const { NumeroTrabajador, NombreCompleto, CorreoElectronicoInstitucional, Curp, TelefonoCelular, Direccion, Categoria, GradoAcademico, AntiguedadUNAM, AntiguedadCarrera, Genero, Telefonocasa } = req.body;
+
+    console.log(`Actualizando trabajador con NumeroTrabajador: ${NumeroTrabajador}`);
+
+    // 2. Ejecutar la consulta UPDATE
+    const query = `
+        UPDATE trabajadores SET
+            NombreCompleto = ?,
+            CorreoElectronicoInstitucional = ?,
+            Curp = ?,
+            TelefonoCelular = ?,
+            Direccion = ?,
+            Categoria = ?,
+            GradoAcademico = ?,
+            AntiguedadUNAM = ?,
+            AntiguedadCarrera = ?,
+            Genero = ?,
+            Telefonocasa = ?
+        WHERE NumeroTrabajador = ?
+    `;
+
+    db.query(query, [NombreCompleto, CorreoElectronicoInstitucional, Curp, TelefonoCelular, Direccion, Categoria, GradoAcademico, AntiguedadUNAM, AntiguedadCarrera, Genero, Telefonocasa, NumeroTrabajador], (err, results) => {
+        if (err) {
+            console.error(`Error al actualizar datos: ${err}`);
+            return res.status(500).send('Error al actualizar el usuario');
         }
-      }
+
+        // 3. Consulta para obtener los datos actualizados
+        const selectQuery = 'SELECT * FROM trabajadores WHERE NumeroTrabajador = ?';
+        db.query(selectQuery, [NumeroTrabajador], (selectErr, selectResults) => {
+            if (selectErr) {
+                console.error(`Error al buscar el usuario actualizado: ${selectErr}`);
+                return res.status(500).send('Error al buscar el usuario actualizado');
+            }
+
+            // 4. Renderizar la vista con los datos actualizados
+            if (selectResults.length > 0) {
+                res.render('edit', { trabajadores: selectResults[0] }); // Renderiza la vista con los datos actualizados
+            } else {
+                res.status(404).send('Usuario no encontrado después de la actualización');
+            }
+        });
     });
-  });
+});
   
 //eliminar
 
