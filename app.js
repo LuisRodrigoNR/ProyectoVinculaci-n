@@ -14,9 +14,9 @@ app.set('view engine', 'ejs');
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'zeus0401',
+    password: '1234',
     database: 'profesores',
-    port: '3308'
+    port: '3306'
 });
 
 //conexion a la DB
@@ -29,7 +29,7 @@ db.connect(err=>{
 });
 /*Puerto*/
 const port = 3038; 
-const hostName= '0.0.0.0';
+const hostName= 'localhost';
 //server inicio
 app.listen(port,hostName,()=>{
     console.log(`El server esta en escucha desde http://${hostName}:${port}`);
