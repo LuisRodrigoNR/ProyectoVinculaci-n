@@ -1,76 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title>Document</title>
-    <style>
-        .container {
-             
-            float:center;
-            
-          }
-        </style>
-       
+  <meta charset="UTF-8">
+  <title>Visor de Excel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class=" light-blue lighten-4">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  
+<body class="bg-gray-100 min-h-screen p-6">
 
-<div class="container purple accent-1"><h1  style="color: rgb(0, 0, 0);text-align: center;">Lista de  usuarios</h1>
-</div>
-<br>
-<div class="container">
-    <table style="box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-collapse: collapse; width: 100%;">
-      <thead>
-        <tr>
-          <th class="blue lighten-3">Numero_Trabajador</th>
-          <th class="blue lighten-3">Nombre_completo</th>
-          <th class="blue lighten-3">Genero</th>
-          <th class="blue lighten-3">RFC</th>
-          <th class="blue lighten-3">Curp</th>
-          <th class="blue lighten-3">Categoria</th>
-          <th class="blue lighten-3">GradoAcademico</th>
-          <th class="blue lighten-3">Antiguedad</th>
-          <th class="blue lighten-3">Antiguedad_Carrera</th>
-          <th class="blue lighten-3">CorreoElectronicoInstitucional</th>
-          <th class="blue lighten-3">Telefono</th>
-          <th class="blue lighten-3">Telefono celular</th>
-          <th class="blue lighten-3">Direccion</th>
-          <th class="blue lighten-3">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% trabajadores.forEach(trabajador => { %>
-        <tr>
-          <td class="green lighten-3"><%= trabajador.NumeroTrabajador %></td>
-          <td class="green lighten-3"><%= trabajador.NombreCompleto %></td>
-          <td class="green lighten-3"><%= trabajador.Genero %></td>
-          <td class="green lighten-3"><%= trabajador.RFC %></td>
-          <td class="green lighten-3"><%= trabajador.Curp %></td>
-          <td class="green lighten-3"><%= trabajador.Categoria %></td>
-          <td class="green lighten-3"><%= trabajador.GradoAcademico %></td>
-          <td class="green lighten-3"><%= trabajador.AntiguedadUNAM %></td>
-          <td class="green lighten-3"><%= trabajador.AntiguedadCarrera %></td>
-          <td class="green lighten-3"><%= trabajador.CorreoElectronicoInstitucional %></td>
-          <td class="green lighten-3"><%= trabajador.TelefonoCasa %></td>
-          <td class="green lighten-3"><%= trabajador.TelefonoCelular %></td>
-          <td class="green lighten-3"><%= trabajador.Direccion %></td>
-          <td class="amber accent-1">
-            <a href="/edit/<%= trabajadores.NumeroTrabajador %>" style="margin-right: 5px;">Editar</a>
-            <form action="/delete/<%= trabajador.NumeroTrabajador %>" method="post" style="display:inline;">
-            <button type="submit">Eliminar</button>
-            </form>
-          </td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
+  <div class="mb-4 flex gap-4">
+    <button onclick="cerrarSesion()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+      Cerrar Sesión
+    </button>
+    <button onclick="exportarExcel()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+      Exportar a Excel
+    </button>
   </div>
-  
-    
+
+  <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">📊 Visor de Archivos Excel</h1>
+
+    <div class="flex justify-center mb-8">
+      <input type="file" id="fileInput" accept=".xlsx, .xls"
+             class="block w-full max-w-md text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+             file:rounded-full file:border-0 file:text-sm file:font-semibold
+             file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" />
+    </div>
+
+    <div id="excelData" class="overflow-x-auto"></div>
+  </div>
+
+  <script>
+    // Mostrar datos guardados si existen
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('tablaExcel');
+      if (saved) {
+        const data = JSON.parse(saved);
+        displayTable(data);
+      }
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        displayTable(jsonData);
+
+        // Guardar en localStorage para persistencia
+        localStorage.setItem('tablaExcel', JSON.stringify(jsonData));
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+
+    function displayTable(data) {
+      if (!data || data.length === 0) return;
+
+      let html = '<table class="min-w-full text-left border-collapse">';
+      html += '<thead><tr class="bg-blue-100 text-blue-800 font-semibold">';
+      data[0].forEach(cell => {
+        html += `<th class="py-3 px-4 border-b border-blue-200">${cell ?? ''}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+
+      data.slice(1).forEach(row => {
+        html += '<tr class="hover:bg-gray-50">';
+        row.forEach(cell => {
+          html += `<td class="py-2 px-4 border-b border-gray-200">${cell ?? ''}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      document.getElementById('excelData').innerHTML = html;
+    }
+
+    function exportarExcel() {
+      const savedData = localStorage.getItem('tablaExcel');
+      if (!savedData) {
+        alert("No hay datos para exportar.");
+        return;
+      }
+
+      const data = JSON.parse(savedData);
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Hoja1");
+
+      XLSX.writeFile(wb, "datos_exportados.xlsx");
+    }
+
+    function cerrarSesion() {
+      // No borramos localStorage
+      // Aquí podrías borrar cookies o tokens si los tuvieras
+      alert("Sesión cerrada (pero los datos se conservaron).");
+      window.location.href = '/'; // Redirigir al inicio o login
+    }
+  </script>
+
 </body>
 </html>
