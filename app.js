@@ -168,7 +168,7 @@ app.post('/delete/:id',(req,res)=>{
             res.redirect('/');
         }
     });
-    
+
 });
 
 app.get('/',(req,res)=>{
